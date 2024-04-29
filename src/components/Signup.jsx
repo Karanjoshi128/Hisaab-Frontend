@@ -1,18 +1,20 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"
+import geekyMonkey from "../assets/images/geeky_monkey.jpg"
+
 
 export const Signup = () => {
     return (
         <>
             <div className="flex w-[85rem] h-[42rem] justify-center items-center">
-                <div className="flex m-10 w-[21rem] h-[32rem] bg-[#F5F5F5] rounded-3xl justify-center items-center">
-                    <div> <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-                        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+                <div className="flex m-10 w-[21rem] h-[32rem] bg-[#F5F5F5] rounded-3xl justify-center items-center shadow-2xl">
+                    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+                        <div className="sm:mx-auto sm:w-full sm:max-w-sm relative">
                             <img
-                                className="mx-auto h-10 w-auto border-2 border-sky-500"
-                                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                                className="mx-auto h-[5.5rem] w-auto absolute top-0 left-0 right-0 "
+                                src={geekyMonkey}
                                 alt="Your Company"
                             />
-                            <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+                            <h2 className="mt-[6rem] text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
                                 Sign Up for an account
                             </h2>
                         </div>
@@ -59,7 +61,7 @@ export const Signup = () => {
                                 </div>
 
                                 <div>
-                                <Link to="/mainarea"><button
+                                    <Link to="/mainarea"><button
                                         type="submit"
                                         className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                     >
@@ -69,15 +71,15 @@ export const Signup = () => {
                                 </div>
                             </form>
 
-                            <p className="mt-10 text-center text-sm text-gray-500">
+                            <p className="mt-[1.5rem] text-center text-sm text-gray-500">
                                 Already a member?{' '}
-                                <Link to="/login" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+                                <Link to="/login" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500 text-center">
                                     Log in to your account
                                 </Link>
                             </p>
                         </div>
                     </div>
-                    </div>
+
                 </div>
             </div>
         </>
