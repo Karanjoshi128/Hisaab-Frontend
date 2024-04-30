@@ -12,7 +12,7 @@ export default function App() {
   return (
     <div className="bg-cover bg-center h-screen" style={{ backgroundImage: `url(${Background})` }}>
       <Routes>
-        <Route path="/mainarea" element={<Mainarea />} />
+        <Route path="/" element={<Mainarea />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
       </Routes>
