@@ -1,6 +1,6 @@
 import react, { useState } from "react"
 import { Link } from "react-router-dom"
-import geekyMonkey from "../assets/images/geeky_monkey.jpg"
+import geekyMonkey from "../assets/images/geeky_monkey.png"
 import axios from "axios"
 
 
@@ -34,7 +34,7 @@ export const Signup = () => {
                     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
                         <div className="sm:mx-auto sm:w-full sm:max-w-sm relative">
                             <img
-                                className="mx-auto h-[5.5rem] w-auto absolute top-0 left-0 right-0"
+                                className="mx-auto h-[5.5rem] w-auto absolute top-0 left-0 right-0 rounded-full border-2 border-dashed border-[#FFA500]"
                                 src={geekyMonkey}
                                 alt="Your Company"
                             />

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import geekyMonkey from "../assets/images/geeky_monkey.jpg"
+import geekyMonkey from "../assets/images/geeky_monkey.png"
 import React, { useState } from "react";
 import axios from "axios"
 
@@ -29,8 +29,8 @@ export const Login = () => {
                 <div className="flex m-10 w-[21rem] h-[32rem] bg-[#F5F5F5] rounded-3xl justify-center items-center shadow-2xl">
                     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
                         <div className="sm:mx-auto sm:w-full sm:max-w-sm relative">
-                            <img
-                                className="mx-auto h-[5.5rem] w-auto absolute top-0 left-0 right-0 "
+                        <img
+                                className="mx-auto h-[5.5rem] w-auto absolute top-0 left-0 right-0 rounded-full border-2 border-dashed border-[#FFA500]"
                                 src={geekyMonkey}
                                 alt="Your Company"
                             />
