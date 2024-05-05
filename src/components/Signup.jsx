@@ -1,14 +1,15 @@
-import react, { useState } from "react"
-import { Link } from "react-router-dom"
+import react, { useContext } from "react"
+import { Link, useNavigate } from "react-router-dom"
 import geekyMonkey from "../assets/images/geeky_monkey.png"
 import axios from "axios"
+import { AppContext } from "../contexts/context";
 
 
 export const Signup = () => {
+    
+    const navigate = useNavigate();
+    const {email , setEmail , password , setPassword , username , setUsername} = useContext(AppContext);
 
-    const [email, setEmail] = useState('');
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -19,8 +20,15 @@ export const Signup = () => {
                 password
             });
             console.log(response.data);
+            setEmail("");
+            setUsername("");
+            setPassword("");
+            navigate("/login");
         } catch (error) {
             console.log(error);
+            setEmail("");
+            setUsername("");
+            setPassword("");
 
         }
     };

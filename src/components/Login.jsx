@@ -1,14 +1,16 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import geekyMonkey from "../assets/images/geeky_monkey.png"
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios"
+import { AppContext } from "../contexts/context";
 
 
 export const Login = () => {
+    const { email, setEmail, password, setPassword , user , setUser , display , setDisplay } = useContext(AppContext);
 
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const navigate = useNavigate();
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -17,7 +19,12 @@ export const Login = () => {
                 email,
                 password
             })
-            console.log(response.data);
+            setUser(response.data);
+            setEmail("");
+            setPassword("");
+            localStorage.setItem("token", response.data.username);
+            navigate("/");
+            // setDisplay(true);
         } catch (error) {
             console.log(error);
         }
@@ -29,7 +36,7 @@ export const Login = () => {
                 <div className="flex m-10 w-[21rem] h-[32rem] bg-[#F5F5F5] rounded-3xl justify-center items-center shadow-2xl">
                     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
                         <div className="sm:mx-auto sm:w-full sm:max-w-sm relative">
-                        <img
+                            <img
                                 className="mx-auto h-[5.5rem] w-auto absolute top-0 left-0 right-0 rounded-full border-2 border-dashed border-[#FFA500]"
                                 src={geekyMonkey}
                                 alt="Your Company"
