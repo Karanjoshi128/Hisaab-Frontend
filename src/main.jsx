@@ -7,7 +7,8 @@ import { AppProvider } from './contexts/context.jsx'
 import axios from 'axios';
 import { BrowserRouter } from "react-router-dom";
 
-axios.defaults.baseURL = 'http://localhost:3000/api/users/v1';
+// axios.defaults.baseURL = 'http://localhost:3000/api/users/v1';
+axios.defaults.baseURL = 'https://hisaab-backend.vercel.app';
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
