@@ -15,6 +15,9 @@ const Profile = (props) => {
 
     useEffect(() => {
         const currentUsername = localStorage.getItem("token");
+        if (!currentUsername) {
+            navigate("/login");
+        }
         const fetchData = async () => {
             try {
                 const response = await axios.get(`/getallusers?paramName=${currentUsername}`);
