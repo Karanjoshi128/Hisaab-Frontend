@@ -10,7 +10,7 @@ const Profile = (props) => {
     const navigate = useNavigate();
 
 
-    const { email, setEmail, password, setPassword, username, setUsername, userInfo, setUserInfo, user, setUser, popupbox, setPopupbox, whichBalance, setwhichBalance, money, setMoney } = useContext(AppContext);
+    const { email, setEmail, password, setPassword, username, setUsername, userInfo, setUserInfo, user, setUser, popupbox, setPopupbox, whichBalance, setwhichBalance, money, setMoney, otherUserInfo1, setOtherUserInfo1, otherUserInfo2, setOtherUserInfo2 } = useContext(AppContext);
 
 
     useEffect(() => {
@@ -21,8 +21,9 @@ const Profile = (props) => {
         const fetchData = async () => {
             try {
                 const response = await axios.get(`/getallusers?paramName=${currentUsername}`);
-                setUserInfo(response.data[0]);
-                // setPopupbox(!popupbox);
+                setUserInfo(response.data.users[0]);
+                setOtherUserInfo1(response.data.otherUsersData[0].username);
+                setOtherUserInfo2(response.data.otherUsersData[1].username);
             } catch (error) {
                 console.log(error);
             }
@@ -140,17 +141,27 @@ const Profile = (props) => {
                             <a href="#" className="flex items-center justify-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 w-[13rem]">{userInfo.username}</a>
                         </div>
                         <div className="flex gap-2 m-3">
-                            <div className='flex flex-col p-2 justify-center items-center border-2 border-white rounded-xl'>
-                                <a href="#" className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">{userInfo.balance1}</a>
-                                <div className="flex gap-4 m-4">
+                            <div className='flex flex-col p-2 justify-center items-center border-2 border-white rounded-xl h-[9rem]'>
+                                <a href="#" className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mt-[2rem]">{userInfo.balance1}</a>
+                                <div className="flex gap-4 m-4 relative mb-0">
+                                    <div type="text" className='absolute left-0 top-[-5rem] w-[5rem] h-[1rem] rounded-md flex items-center justify-center' >
+                                        <div className="inline-block">
+                                            <a href="#" className="flex items-center justify-center px-4 py-2 text-[0.6rem] font-medium text-center text-white bg-[#CA8A04] dark rounded-lg  h-[2rem] w-[7rem]">{otherUserInfo1}</a>
+                                        </div>
+                                    </div>
                                     <button className='rounded-3xl border-2 border-white h-[2rem] w-[2rem]' onClick={handleAddBal1}><i className="fa-solid fa-plus" style={{ color: '#FFD43B' }}></i></button>
                                     <button className='rounded-3xl border-2 border-white h-[2rem] w-[2rem]' onClick={handleSubtractBal1}><i className="fa-solid fa-minus" style={{ color: '#FFD43B' }}></i></button>
                                 </div>
                             </div>
-                            <div className='flex flex-col p-2 justify-center items-center border-2 border-white rounded-xl'>
-                                <a href="#" className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">{userInfo.balance2}</a>
-                                <div className="flex gap-4 m-4">
-                                    <button className='rounded-3xl border-2 border-white h-[2rem] w-[2rem]' onClick={handleAddBal2}><i className="fa-solid fa-plus" style={{ color: '#FFD43B' }}></i></button>
+                            <div className='flex flex-col p-2 justify-center items-center border-2 border-white rounded-xl '>
+                                <a href="#" className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mt-[2rem]">{userInfo.balance2}</a>
+                                <div className="flex gap-4 m-4 mb-0 relative">
+                                    <div type="text" className='absolute left-0 top-[-5rem] w-[5rem] h-[1rem] rounded-md flex items-center justify-center' >
+                                        <div className="inline-block">
+                                            <a href="#" className="flex items-center justify-center px-4 py-2 text-[0.6rem] font-medium text-center text-white bg-[#CA8A04] dark rounded-lg  h-[2rem] w-[7rem]">{otherUserInfo2}</a>
+                                        </div>
+                                    </div>
+                                                                     <button className='rounded-3xl border-2 border-white h-[2rem] w-[2rem]' onClick={handleAddBal2}><i className="fa-solid fa-plus" style={{ color: '#FFD43B' }}></i></button>
                                     <button className='rounded-3xl border-2 border-white h-[2rem] w-[2rem]' onClick={handleSubtractBal2}><i className="fa-solid fa-minus" style={{ color: '#FFD43B' }}></i></button>
                                 </div>
                             </div>
@@ -167,8 +178,8 @@ const Profile = (props) => {
                         <a href="#" className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800  w-[17rem] h-[3rem]">Second transaction</a>
 
                     </div>
-                    <div className="flex gap-2 m-3  w-[17rem] justify-center">
-                        <a href="#" className="flex items-center justify-center w-[6rem] h-[2.5rem] px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800  w-[17rem] h-[3rem]" onClick={handleLogout}><b>Logout</b></a>
+                    <div className="flex gap-2 m-3  w-[17rem] h-[3.5rem] justify-center">
+                        <a href="#" className="flex items-center justify-center w-[6rem] h-[2.5rem] px-4 py-2 text-sm font-medium text-center text-white bg-[#CA8A04] rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 " onClick={handleLogout}><b>Logout</b></a>
 
                     </div>
 

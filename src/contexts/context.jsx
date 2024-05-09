@@ -13,12 +13,14 @@ const AppProvider = ({ children }) => {
 
 
     const [userInfo, setUserInfo] = useState([]);
+    const [otherUserInfo1, setOtherUserInfo1] = useState("");
+    const [otherUserInfo2, setOtherUserInfo2] = useState("");
     const [user, setUser] = useState([]);
 
 
 
 
-    return <AppContext.Provider value={{ email, setEmail, password, setPassword, username, setUsername , userInfo , setUserInfo , user , setUser ,popupbox, setPopupbox , whichBalance, setwhichBalance ,money, setMoney }}>
+    return <AppContext.Provider value={{ email, setEmail, password, setPassword, username, setUsername , userInfo , setUserInfo , user , setUser ,popupbox, setPopupbox , whichBalance, setwhichBalance ,money, setMoney , otherUserInfo1, setOtherUserInfo1 , otherUserInfo2, setOtherUserInfo2 }}>
         {children}
     </AppContext.Provider>
 };
