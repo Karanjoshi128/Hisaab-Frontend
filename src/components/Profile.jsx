@@ -24,6 +24,8 @@ const Profile = (props) => {
                 setUserInfo(response.data.users[0]);
                 setOtherUserInfo1(response.data.otherUsersData[0].username);
                 setOtherUserInfo2(response.data.otherUsersData[1].username);
+                // const response2 = await axios.patch(`/setBalanceTarget?paramUsername=${currentUsername}&targetUserOne=${otherUserInfo1}&targetUserTwo=${otherUserInfo2}`);
+
             } catch (error) {
                 console.log(error);
             }
@@ -59,9 +61,10 @@ const Profile = (props) => {
 
     const onClickAddBalanceOne = async () => {
         try {
-            const amount = money
             const currentUsername = localStorage.getItem("token");
-            const response = await axios.post(`/transactionaddbal1?paramAmount=${amount}&paramUsername=${currentUsername}`, {
+            const amount = money
+            const targetUser = otherUserInfo1;
+            const response = await axios.post(`/transactionaddbal1?paramAmount=${amount}&paramUsername=${currentUsername}&targetUserOne=${otherUserInfo1}&targetUserTwo=${otherUserInfo2}&targetUser=${targetUser}`, {
                 username: userInfo.username,
             })
             setUserInfo(response.data);
@@ -71,9 +74,10 @@ const Profile = (props) => {
     }
     const onClickSubtractBalanceOne = async () => {
         try {
-            const amount = money
             const currentUsername = localStorage.getItem("token");
-            const response = await axios.post(`/transactionsubtractbal1?paramAmount=${amount}&paramUsername=${currentUsername}`, {
+            const amount = money
+            const targetUser = otherUserInfo1;
+            const response = await axios.post(`/transactionsubtractbal1?paramAmount=${amount}&paramUsername=${currentUsername}&targetUserOne=${otherUserInfo1}&targetUserTwo=${otherUserInfo2}&targetUser=${targetUser}`, {
                 username: userInfo.username,
             })
             setUserInfo(response.data);
@@ -83,9 +87,10 @@ const Profile = (props) => {
     }
     const onClickAddBalanceTwo = async () => {
         try {
-            const amount = money
             const currentUsername = localStorage.getItem("token");
-            const response = await axios.post(`/transactionaddbal2?paramAmount=${amount}&paramUsername=${currentUsername}`, {
+            const amount = money
+            const targetUser = otherUserInfo1;
+            const response = await axios.post(`/transactionaddbal2?paramAmount=${amount}&paramUsername=${currentUsername}&targetUserOne=${otherUserInfo1}&targetUserTwo=${otherUserInfo2}&targetUser=${targetUser}`, {
                 username: userInfo.username,
             })
             setUserInfo(response.data);
@@ -95,9 +100,10 @@ const Profile = (props) => {
     }
     const onClickSubtractBalanceTwo = async () => {
         try {
-            const amount = money
             const currentUsername = localStorage.getItem("token");
-            const response = await axios.post(`/transactionsubtractbal2?paramAmount=${amount}&paramUsername=${currentUsername}`, {
+            const amount = money
+            const targetUser = otherUserInfo1;
+            const response = await axios.post(`/transactionsubtractbal2?paramAmount=${amount}&paramUsername=${currentUsername}&targetUserOne=${otherUserInfo1}&targetUserTwo=${otherUserInfo2}&targetUser=${targetUser}`, {
                 username: userInfo.username,
             })
             setUserInfo(response.data);
