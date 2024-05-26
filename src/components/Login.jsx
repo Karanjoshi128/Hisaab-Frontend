@@ -3,10 +3,13 @@ import geekyMonkey from "../assets/images/geeky_monkey.png"
 import React, { useContext, useState } from "react";
 import axios from "axios"
 import { AppContext } from "../contexts/context";
+import { Vortex } from "react-loader-spinner";
+
 
 
 export const Login = () => {
-    const { email, setEmail, password, setPassword , user , setUser , display , setDisplay } = useContext(AppContext);
+    const { email, setEmail, password, setPassword, user, setUser, display, setDisplay, loading, setLoading } = useContext(AppContext);
+
 
 
     const navigate = useNavigate();
@@ -15,6 +18,7 @@ export const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            setLoading(true);
             const response = await axios.post('/login', {
                 email,
                 password
@@ -23,8 +27,8 @@ export const Login = () => {
             setEmail("");
             setPassword("");
             localStorage.setItem("token", response.data.username);
+            setLoading(false);
             navigate("/");
-            // setDisplay(true);
         } catch (error) {
             console.log(error);
         }
@@ -32,10 +36,25 @@ export const Login = () => {
 
     return (
         <>
-            <div className="flex w-[85rem] h-[42rem] justify-center items-center ">
+            <div className="flex w-[85rem] h-[42rem] justify-center items-center">
                 <div className="flex m-10 w-[21rem] h-[32rem] bg-[#F5F5F5] rounded-3xl justify-center items-center shadow-2xl">
-                    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+                    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 relative">
+
                         <div className="sm:mx-auto sm:w-full sm:max-w-sm relative">
+                            {loading && (
+                                <div className='h-full w-full opacity-[90%] absolute flex justify-center items-center top-[11rem]'>
+                                    <div>
+                                        <Vortex
+                                            height="80"
+                                            width="80"
+                                            ariaLabel="vortex-loading"
+                                            wrapperStyle={{}}
+                                            wrapperClass="vortex-wrapper"
+                                            colors={['red', 'green', 'blue', 'yellow', 'orange', 'purple']}
+                                        />
+                                    </div>
+                                </div>
+                            )}
                             <img
                                 className="mx-auto h-[5.5rem] w-auto absolute top-0 left-0 right-0 rounded-full border-2 border-dashed border-[#FFA500]"
                                 src={geekyMonkey}

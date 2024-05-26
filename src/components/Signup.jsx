@@ -6,9 +6,9 @@ import { AppContext } from "../contexts/context";
 
 
 export const Signup = () => {
-    
+
     const navigate = useNavigate();
-    const {email , setEmail , password , setPassword , username , setUsername} = useContext(AppContext);
+    const { email, setEmail, password, setPassword, username, setUsername } = useContext(AppContext);
 
 
     const handleSubmit = async (e) => {
@@ -19,11 +19,12 @@ export const Signup = () => {
                 email,
                 password
             });
-            console.log(response.data);
-            setEmail("");
-            setUsername("");
-            setPassword("");
-            navigate("/login");
+            if (response) {
+                setEmail("");
+                setUsername("");
+                setPassword("");
+                navigate("/login");
+            }
         } catch (error) {
             console.log(error);
             setEmail("");
