@@ -22,11 +22,11 @@ export const Login = () => {
             const response = await axios.post('/login', {
                 email,
                 password
-            })
+            }, { withCredentials: true });
             setUser(response.data);
             setEmail("");
             setPassword("");
-            localStorage.setItem("token", response.data.username);
+            // localStorage.setItem("token", response.data.username); // to change
             setLoading(false);
             navigate("/");
         } catch (error) {

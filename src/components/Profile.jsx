@@ -16,14 +16,29 @@ const Profile = (props) => {
     const { email, setEmail, password, setPassword, username, setUsername, userInfo, setUserInfo, user, setUser, popupbox, setPopupbox, whichBalance, setwhichBalance, money, setMoney, reasonOf, setReasonOf, otherUserInfo1, setOtherUserInfo1, otherUserInfo2, setOtherUserInfo2, empty, setEmpty, info, setInfo } = useContext(AppContext);
 
 
+    const getCookie = (name) => {
+        let matches = document.cookie.match(new RegExp(
+            "(?:^|; )" + name.replace(/([.$?*|{}()[\]\\/+^])/g, '\\$1') + "=([^;]*)"
+        ));
+        return matches ? decodeURIComponent(matches[1]) : undefined;
+    };
+
+
     useEffect(() => {
-        const currentUsername = localStorage.getItem("token");
+        
+
+        // const currentUsername = localStorage.getItem("token");
+
+        const currentUsername = getCookie('username');
+
+        // console.log(currentUsername);
+
         if (!currentUsername) {
             navigate("/login");
         }
         const fetchData = async () => {
             try {
-                const response = await axios.get(`/getallusers?paramName=${currentUsername}`);
+                const response = await axios.get(`/getallusers?paramName=${currentUsername}` , {withCredentials: true });
                 setUserInfo(response.data.users[0]);
                 setOtherUserInfo1(response.data.otherUsersData[0].username);
                 setOtherUserInfo2(response.data.otherUsersData[1].username);
@@ -47,23 +62,37 @@ const Profile = (props) => {
             setEmpty(false);
         }
         else {
-            const response2 = await axios.get(`/getalltransactions`);
-            if (response2.data.length != 0) {
-                setInfo(response2.data);
-                // console.log(response2.data);
-                // console.log(info);
-                setEmpty(!empty);
+            try {
+                const response2 = await axios.get(`/getalltransactions`, { withCredentials: true });
+                if (response2.data.length != 0) {
+                    setInfo(response2.data);
+                    // console.log(response2.data);
+                    // console.log(info);
+                    setEmpty(!empty);
+                }
+            } catch (error) {
+                if (error.response && error.response.status === 401) {
+                    navigate('/login');
+                  } else {
+                    console.error('An error occurred while fetching transactions:', error);
+                  }
+                
             }
         }
     }
 
 
 
-    const handleLogout = () => {
-        localStorage.removeItem("token");
-        setUser("");
-        navigate("/login");
-    }
+
+    const handleLogout = async () => {
+        try {
+          await axios.post('/logout', {}, { withCredentials: true });
+          setUser("");
+          navigate("/login");
+        } catch (error) {
+          console.error("Error during logout", error);
+        }
+      };
 
     const handleAddBal1 = () => {
         setwhichBalance("AddBalance1");
@@ -87,14 +116,14 @@ const Profile = (props) => {
 
     const onClickAddBalanceOne = async () => {
         try {
-            const currentUsername = localStorage.getItem("token");
+            const currentUsername = getCookie('username');
             const amount = money;
             const targetUser = otherUserInfo1;
             const response = await axios.post(`/transactionaddbal1?paramAmount=${amount}&paramUsername=${currentUsername}&targetUserOne=${otherUserInfo1}&targetUserTwo=${otherUserInfo2}&targetUser=${targetUser}`, {
                 username: userInfo.username,
-            })
+            }, { withCredentials: true })
             setUserInfo(response.data);
-            const sender = localStorage.getItem("token");
+            const sender = getCookie('username');
             const receiver = targetUser;
             const reason = reasonOf;
             await axios.post(`/saveandcreatetransaction`, {
@@ -102,7 +131,7 @@ const Profile = (props) => {
                 receiver,
                 amount,
                 reason
-            });
+            }, { withCredentials: true });
 
         } catch (error) {
             console.log(error);
@@ -110,14 +139,14 @@ const Profile = (props) => {
     }
     const onClickSubtractBalanceOne = async () => {
         try {
-            const currentUsername = localStorage.getItem("token");
+            const currentUsername = getCookie('username');
             const amount = money
             const targetUser = otherUserInfo1;
             const response = await axios.post(`/transactionsubtractbal1?paramAmount=${amount}&paramUsername=${currentUsername}&targetUserOne=${otherUserInfo1}&targetUserTwo=${otherUserInfo2}&targetUser=${targetUser}`, {
                 username: userInfo.username,
-            })
+            }, { withCredentials: true })
             setUserInfo(response.data);
-            const sender = localStorage.getItem("token");
+            const sender = getCookie('username');
             const receiver = targetUser;
             const reason = reasonOf;
             await axios.post(`/saveandcreatetransaction`, {
@@ -125,21 +154,21 @@ const Profile = (props) => {
                 receiver,
                 amount : 0-amount,
                 reason
-            })
+            }, { withCredentials: true })
         } catch (error) {
             console.log(error);
         }
     }
     const onClickAddBalanceTwo = async () => {
         try {
-            const currentUsername = localStorage.getItem("token");
+            const currentUsername = getCookie('username');
             const amount = money
             const targetUser = otherUserInfo2;
             const response = await axios.post(`/transactionaddbal2?paramAmount=${amount}&paramUsername=${currentUsername}&targetUserOne=${otherUserInfo1}&targetUserTwo=${otherUserInfo2}&targetUser=${targetUser}`, {
                 username: userInfo.username,
-            })
+            }, { withCredentials: true })
             setUserInfo(response.data);
-            const sender = localStorage.getItem("token");
+            const sender = getCookie('username');
             const receiver = targetUser;
             const reason = reasonOf;
             await axios.post(`/saveandcreatetransaction`, {
@@ -147,21 +176,21 @@ const Profile = (props) => {
                 receiver,
                 amount,
                 reason
-            })
+            }, { withCredentials: true })
         } catch (error) {
             console.log(error);
         }
     }
     const onClickSubtractBalanceTwo = async () => {
         try {
-            const currentUsername = localStorage.getItem("token");
+            const currentUsername = getCookie('username');
             const amount = money
             const targetUser = otherUserInfo2;
             const response = await axios.post(`/transactionsubtractbal2?paramAmount=${amount}&paramUsername=${currentUsername}&targetUserOne=${otherUserInfo1}&targetUserTwo=${otherUserInfo2}&targetUser=${targetUser}`, {
                 username: userInfo.username,
-            })
+            }, { withCredentials: true })
             setUserInfo(response.data);
-            const sender = localStorage.getItem("token");
+            const sender = getCookie('username');
             const receiver = targetUser;
             const reason = reasonOf;
             await axios.post(`/saveandcreatetransaction`, {
@@ -169,7 +198,7 @@ const Profile = (props) => {
                 receiver,
                 amount : 0-amount,
                 reason
-            })
+            }, { withCredentials: true })
         } catch (error) {
             console.log(error);
         }
