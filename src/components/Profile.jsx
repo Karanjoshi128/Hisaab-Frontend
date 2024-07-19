@@ -31,7 +31,7 @@ const Profile = (props) => {
 
         const currentUsername = getCookie('username');
 
-        // console.log(currentUsername);
+        console.log(currentUsername);
 
         if (!currentUsername) {
             navigate("/login");
