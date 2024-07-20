@@ -38,7 +38,7 @@ const Profile = (props) => {
         }
         const fetchData = async () => {
             try {
-                const currentUsername = getCookie('username');
+                // const currentUsername = getCookie('username');
                 const response = await axios.get(`/getallusers?paramName=${currentUsername}` , {withCredentials: true });
                 setUserInfo(response.data.users[0]);
                 setOtherUserInfo1(response.data.otherUsersData[0].username);
