@@ -16,12 +16,19 @@ const Profile = (props) => {
     const { email, setEmail, password, setPassword, username, setUsername, userInfo, setUserInfo, user, setUser, popupbox, setPopupbox, whichBalance, setwhichBalance, money, setMoney, reasonOf, setReasonOf, otherUserInfo1, setOtherUserInfo1, otherUserInfo2, setOtherUserInfo2, empty, setEmpty, info, setInfo } = useContext(AppContext);
 
 
-    const getCookie = (name) => {
-        let matches = document.cookie.match(new RegExp(
-            "(?:^|; )" + name.replace(/([.$?*|{}()[\]\\/+^])/g, '\\$1') + "=([^;]*)"
-        ));
-        return matches ? decodeURIComponent(matches[1]) : undefined;
-    };
+    // const getCookie = (name) => {
+    //     let matches = document.cookie.match(new RegExp(
+    //         "(?:^|; )" + name.replace(/([.$?*|{}()[\]\\/+^])/g, '\\$1') + "=([^;]*)"
+    //     ));
+    //     return matches ? decodeURIComponent(matches[1]) : undefined;
+    // };
+
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+        return null;
+      }
 
 
     useEffect(() => {
