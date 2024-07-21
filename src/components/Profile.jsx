@@ -33,7 +33,6 @@ const Profile = (props) => {
 
     useEffect(() => {
         // const currentUsernameC = getCookie('username');
-        const currentUsername = "Hello";
         // console.log(currentUsernameC);
 
         // if (!currentUsernameC) {
@@ -42,7 +41,7 @@ const Profile = (props) => {
 
         const fetchData = async () => {
             try {
-                const response = await axios.get(`/getallusers?paramName=${currentUsername}`, { withCredentials: true });
+                const response = await axios.get(`/getallusers`, { withCredentials: true });
                 setUserInfo(response.data.users[0]);
                 setOtherUserInfo1(response.data.otherUsersData[0].username);
                 setOtherUserInfo2(response.data.otherUsersData[1].username);
@@ -84,10 +83,10 @@ const Profile = (props) => {
 
     const handleLogout = async () => {
         try {
-            localStorage.removeItem("token");
+            // localStorage.removeItem("token");
+            navigate("/login");
             await axios.post('/logout', {}, { withCredentials: true });
             setUser("");
-            navigate("/login");
         } catch (error) {
             console.error("Error during logout", error);
         }
