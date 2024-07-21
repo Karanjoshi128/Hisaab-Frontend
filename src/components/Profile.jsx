@@ -31,35 +31,29 @@ const Profile = (props) => {
     //   }
 
 
-
     useEffect(() => {
-        const fetchData = async (currentUsernameC) => {
-          try {
-            const response = await axios.get(`/getallusers?paramName1=${currentUsernameC}`, {
-              withCredentials: true,
-            });
-            setUserInfo(response.data.users[0]);
-            setOtherUserInfo1(response.data.otherUsersData[0].username);
-            setOtherUserInfo2(response.data.otherUsersData[1].username);
-            navigate('/');
-          } catch (error) {
-            console.log(error);
-          }
-        };
-    
-        const delayFetch = () => {
-          const currentUsernameC = getCookie('username');
-          console.log('Cookie:', currentUsernameC);
-    
-          if (!currentUsernameC) {
-            navigate("/login");
-          } else {
-            setTimeout(() => fetchData(currentUsernameC), 500); // Add a delay
-          }
-        };
-    
-        delayFetch();
-      }, [navigate]);
+        // const currentUsernameC = getCookie('username');
+        const currentUsername = "Hello";
+        // console.log(currentUsernameC);
+
+        // if (!currentUsernameC) {
+        //     navigate("/login");
+        // }
+
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(`/getallusers?paramName=${currentUsername}`, { withCredentials: true });
+                setUserInfo(response.data.users[0]);
+                setOtherUserInfo1(response.data.otherUsersData[0].username);
+                setOtherUserInfo2(response.data.otherUsersData[1].username);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+
+        fetchData();
+    }, []);
 
     const handleTransaction = async () => {
         if (empty) {
