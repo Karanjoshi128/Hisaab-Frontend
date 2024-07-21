@@ -67,7 +67,7 @@ const Profile = (props) => {
 
 
         delayFetch();
-    }, [navigate]);
+    }, []);
 
     const handleTransaction = async () => {
         if (empty) {
