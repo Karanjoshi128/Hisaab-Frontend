@@ -98,9 +98,9 @@ const Profile = (props) => {
 
     const handleLogout = async () => {
         try {
+            localStorage.removeItem("token");
             await axios.post('/logout', {}, { withCredentials: true });
             setUser("");
-            localStorage.removeItem("token");
             navigate("/login");
         } catch (error) {
             console.error("Error during logout", error);
