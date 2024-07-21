@@ -35,6 +35,7 @@ const Profile = (props) => {
 
         const fetchData = async () => {
             try {
+                const currentUsernameLs = 3;
                 const response = await axios.get(`/getallusers?paramName1=${currentUsernameLs}&paramName2=${currentUsernameC}`, { withCredentials: true });
                 setUserInfo(response.data.users[0]);
                 setOtherUserInfo1(response.data.otherUsersData[0].username);
@@ -53,11 +54,11 @@ const Profile = (props) => {
         }
 
         const delayFetch = () => {
-            const currentUsernameLs = localStorage.getItem("token");
+            // const currentUsernameLs = localStorage.getItem("token");
             const currentUsernameC = getCookie('username');
             console.log(currentUsernameC);
 
-            if (!currentUsernameC && !currentUsernameLs) {
+            if (!currentUsernameC) {
                 navigate("/login");
             }
             else {
