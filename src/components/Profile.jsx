@@ -32,21 +32,10 @@ const Profile = (props) => {
 
 
     useEffect(() => {
-        
 
-        const currentUsernameLs = localStorage.getItem("token");
-
-        const currentUsernameC = getCookie('username');
-
-        console.log(currentUsernameC);
-
-        if (!currentUsernameC && !currentUsernameLs) {
-            navigate("/login");
-        }
         const fetchData = async () => {
             try {
-                // const currentUsername = getCookie('username');
-                const response = await axios.get(`/getallusers?paramName1=${currentUsernameLs}&paramName2=${currentUsernameC}` , {withCredentials: true });
+                const response = await axios.get(`/getallusers?paramName1=${currentUsernameLs}&paramName2=${currentUsernameC}`, { withCredentials: true });
                 setUserInfo(response.data.users[0]);
                 setOtherUserInfo1(response.data.otherUsersData[0].username);
                 setOtherUserInfo2(response.data.otherUsersData[1].username);
@@ -62,8 +51,23 @@ const Profile = (props) => {
                 console.log(error);
             }
         }
-        fetchData();
-    }, [])
+
+        const delayFetch = () => {
+            const currentUsernameLs = localStorage.getItem("token");
+            const currentUsernameC = getCookie('username');
+            console.log(currentUsernameC);
+
+            if (!currentUsernameC && !currentUsernameLs) {
+                navigate("/login");
+            }
+            else {
+                setTimeout(fetchData, 500); // Add a delay
+            }
+        };
+
+
+        delayFetch();
+    }, [navigate]);
 
     const handleTransaction = async () => {
         if (empty) {
@@ -81,10 +85,10 @@ const Profile = (props) => {
             } catch (error) {
                 if (error.response && error.response.status === 401) {
                     navigate('/login');
-                  } else {
+                } else {
                     console.error('An error occurred while fetching transactions:', error);
-                  }
-                
+                }
+
             }
         }
     }
@@ -94,14 +98,14 @@ const Profile = (props) => {
 
     const handleLogout = async () => {
         try {
-          await axios.post('/logout', {}, { withCredentials: true });
-          setUser("");
-          localStorage.removeItem("token");
-          navigate("/login");
+            await axios.post('/logout', {}, { withCredentials: true });
+            setUser("");
+            localStorage.removeItem("token");
+            navigate("/login");
         } catch (error) {
-          console.error("Error during logout", error);
+            console.error("Error during logout", error);
         }
-      };
+    };
 
     const handleAddBal1 = () => {
         setwhichBalance("AddBalance1");
@@ -161,7 +165,7 @@ const Profile = (props) => {
             await axios.post(`/saveandcreatetransaction`, {
                 sender,
                 receiver,
-                amount : 0-amount,
+                amount: 0 - amount,
                 reason
             }, { withCredentials: true })
         } catch (error) {
@@ -205,7 +209,7 @@ const Profile = (props) => {
             await axios.post(`/saveandcreatetransaction`, {
                 sender,
                 receiver,
-                amount : 0-amount,
+                amount: 0 - amount,
                 reason
             }, { withCredentials: true })
         } catch (error) {
