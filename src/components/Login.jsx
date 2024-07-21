@@ -26,7 +26,7 @@ export const Login = () => {
             setUser(response.data);
             setEmail("");
             setPassword("");
-            localStorage.setItem("token", response.data.username); // to change
+            // localStorage.setItem("token", response.data.username); // to change
             setLoading(false);
             navigate("/");
         } catch (error) {

@@ -41,6 +41,7 @@ const Profile = (props) => {
             setUserInfo(response.data.users[0]);
             setOtherUserInfo1(response.data.otherUsersData[0].username);
             setOtherUserInfo2(response.data.otherUsersData[1].username);
+            navigate('/');
           } catch (error) {
             console.log(error);
           }
