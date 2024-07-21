@@ -31,44 +31,34 @@ const Profile = (props) => {
     //   }
 
 
+
     useEffect(() => {
-
-        const fetchData = async () => {
-            try {
-                const currentUsernameLs = 3;
-                const response = await axios.get(`/getallusers?paramName1=${currentUsernameLs}&paramName2=${currentUsernameC}`, { withCredentials: true });
-                setUserInfo(response.data.users[0]);
-                setOtherUserInfo1(response.data.otherUsersData[0].username);
-                setOtherUserInfo2(response.data.otherUsersData[1].username);
-
-                // setEmpty(true);
-                // const response2 = await axios.get(`/getalltransactions`);
-                // if (response2.data.length != 0) {
-                //     setInfo(response2.data);
-                //     console.log(response2.data);
-                //     console.log(info);
-                // }
-            } catch (error) {
-                console.log(error);
-            }
-        }
-
-        const delayFetch = () => {
-            // const currentUsernameLs = localStorage.getItem("token");
-            const currentUsernameC = getCookie('username');
-            console.log(currentUsernameC);
-
-            if (!currentUsernameC) {
-                navigate("/login");
-            }
-            else {
-                setTimeout(fetchData, 500); // Add a delay
-            }
+        const fetchData = async (currentUsernameC) => {
+          try {
+            const response = await axios.get(`/getallusers?paramName1=${currentUsernameC}`, {
+              withCredentials: true,
+            });
+            setUserInfo(response.data.users[0]);
+            setOtherUserInfo1(response.data.otherUsersData[0].username);
+            setOtherUserInfo2(response.data.otherUsersData[1].username);
+          } catch (error) {
+            console.log(error);
+          }
         };
-
-
+    
+        const delayFetch = () => {
+          const currentUsernameC = getCookie('username');
+          console.log('Cookie:', currentUsernameC);
+    
+          if (!currentUsernameC) {
+            navigate("/login");
+          } else {
+            setTimeout(() => fetchData(currentUsernameC), 500); // Add a delay
+          }
+        };
+    
         delayFetch();
-    }, []);
+      }, [navigate]);
 
     const handleTransaction = async () => {
         if (empty) {
