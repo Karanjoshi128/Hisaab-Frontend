@@ -115,18 +115,15 @@ const Profile = (props) => {
     const onClickAddBalanceOne = async () => {
         try {
             const currentUsername = getCookie('username');
-            console.log(currentUsername);
             const amount = money;
             const targetUser = otherUserInfo1;
             const response = await axios.post(`/transactionaddbal1?paramAmount=${amount}&paramUsername=${currentUsername}&targetUserOne=${otherUserInfo1}&targetUserTwo=${otherUserInfo2}&targetUser=${targetUser}`, {
                 username: userInfo.username,
             }, { withCredentials: true })
             setUserInfo(response.data);
-            const sender = getCookie('username');
             const receiver = targetUser;
             const reason = reasonOf;
             await axios.post(`/saveandcreatetransaction`, {
-                sender,
                 receiver,
                 amount,
                 reason
@@ -145,11 +142,9 @@ const Profile = (props) => {
                 username: userInfo.username,
             }, { withCredentials: true })
             setUserInfo(response.data);
-            const sender = getCookie('username');
             const receiver = targetUser;
             const reason = reasonOf;
             await axios.post(`/saveandcreatetransaction`, {
-                sender,
                 receiver,
                 amount: 0 - amount,
                 reason
@@ -167,11 +162,9 @@ const Profile = (props) => {
                 username: userInfo.username,
             }, { withCredentials: true })
             setUserInfo(response.data);
-            const sender = getCookie('username');
             const receiver = targetUser;
             const reason = reasonOf;
             await axios.post(`/saveandcreatetransaction`, {
-                sender,
                 receiver,
                 amount,
                 reason
@@ -189,11 +182,9 @@ const Profile = (props) => {
                 username: userInfo.username,
             }, { withCredentials: true })
             setUserInfo(response.data);
-            const sender = getCookie('username');
             const receiver = targetUser;
             const reason = reasonOf;
             await axios.post(`/saveandcreatetransaction`, {
-                sender,
                 receiver,
                 amount: 0 - amount,
                 reason
