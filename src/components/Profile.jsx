@@ -115,6 +115,7 @@ const Profile = (props) => {
     const onClickAddBalanceOne = async () => {
         try {
             const currentUsername = getCookie('username');
+            console.log(currentUsername);
             const amount = money;
             const targetUser = otherUserInfo1;
             const response = await axios.post(`/transactionaddbal1?paramAmount=${amount}&paramUsername=${currentUsername}&targetUserOne=${otherUserInfo1}&targetUserTwo=${otherUserInfo2}&targetUser=${targetUser}`, {
