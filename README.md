@@ -1,4 +1,4 @@
-Collecting workspace information```md
+
 # Hisaab - Expense Management Application
 
 Hisaab is a React-based web application designed to manage and track expenses. It provides a user-friendly interface for users to register, log in, and manage their transactions effectively. The application is built using modern web technologies like React, TailwindCSS, and Vite.
